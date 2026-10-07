@@ -1,0 +1,9 @@
+node_modules/
+dist/
+release/
+android/build/
+android/dist/
+*.keystore
+*.pem
+public/vendor/fluffy-friends.js
+android/assets/ui/fluffy-friends.js

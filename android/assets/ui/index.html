@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' file:; object-src 'none'; base-uri 'none'; img-src 'self' file: data: blob:; font-src 'self' file:; connect-src 'none'; frame-src 'none'; form-action 'none'">
+<title>Puente</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="bg"></div>
+<header class="top">
+  <div class="brand"><span class="wordmark">PUENTE</span><span class="seal" id="seal">● Cifrado</span></div>
+  <div class="top-actions">
+    <button class="pill" id="privBtn" aria-label="Sesión privada">Privada</button>
+    <button class="pill panic" id="panicBtn" aria-label="Botón del pánico">Pánico</button>
+  </div>
+</header>
+<main id="main"></main>
+<nav class="tabs" id="tabs">
+  <button data-tab="enviar"><b>01</b><span>Enviar</span></button>
+  <button data-tab="recibido"><b>02</b><span>Recibido</span><i class="badge" id="askBadge"></i></button>
+  <button data-tab="emparejar"><b>03</b><span>Emparejar</span></button>
+  <button data-tab="ajustes"><b>04</b><span>Ajustes</span></button>
+</nav>
+<div id="modal"></div>
+<div id="toast"></div>
+<div class="nubo" id="nubo">
+  <div class="nubo-bubble" id="nuboBubble"></div>
+  <button class="nubo-pet" id="nuboPet" aria-label="Nubo · ayuda"><fluffy-friend id="ff" character="kuma" theme="transparent" class="nubo-ff"></fluffy-friend></button>
+</div>
+<div id="help"></div>
+<script src="fluffy-friends.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

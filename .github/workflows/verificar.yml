@@ -1,0 +1,23 @@
+# Cada cambio pasa las pruebas: protocolo y motor (Node), fuzzing, móvil contra el PC real (JVM) y la pantalla del móvil.
+# (La prueba con dos Electron de verdad se ejecuta en local con scripts/verificar.sh.)
+name: verificar
+on: [push, pull_request]
+jobs:
+  pruebas:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - uses: actions/setup-java@v4
+        with: { distribution: temurin, java-version: 21 }
+      - run: npm ci
+      - name: Motor, protocolo y fuzzing
+        run: timeout 600 npm test
+      - name: Ventana del PC
+        run: npx vite build
+      - name: Móvil (vectores, fuzzing, contra el PC real)
+        run: timeout 900 android/test/run.sh
+      - name: Pantalla del móvil
+        run: npx playwright-core install --with-deps chromium && timeout 400 node android/test/ui.e2e.cjs "$RUNNER_TEMP"

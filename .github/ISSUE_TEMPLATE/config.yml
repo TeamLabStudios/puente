@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Fallo de seguridad
+    url: https://github.com/TeamLabStudios/puente/security/advisories/new
+    about: Avísanos en privado, no en un issue público.

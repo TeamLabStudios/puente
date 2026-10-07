@@ -1,0 +1,12 @@
+name: Fallo
+description: Algo no funciona como debería
+labels: [fallo]
+body:
+  - type: input
+    attributes: { label: Versión de Puente, placeholder: "0.3.0" }
+    validations: { required: true }
+  - type: dropdown
+    attributes: { label: Dónde, options: [Windows, Android, Relé, Varios] }
+  - type: textarea
+    attributes: { label: Qué pasa, description: "Qué hiciste, qué esperabas y qué pasó. Sin nombres de archivos privados ni claves." }
+    validations: { required: true }
