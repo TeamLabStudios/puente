@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with: { node-version: 22, cache: npm }
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: 21 }
       - run: npm ci
       - name: Motor, protocolo y fuzzing
@@ -20,4 +20,10 @@ jobs:
       - name: Móvil (vectores, fuzzing, contra el PC real)
         run: timeout 900 android/test/run.sh
       - name: Pantalla del móvil
-        run: npx playwright-core install --with-deps chromium && timeout 400 node android/test/ui.e2e.cjs "$RUNNER_TEMP"
+        run: |
+          npx playwright-core install --with-deps chromium
+          set +e
+          timeout 400 node android/test/ui.e2e.cjs "$RUNNER_TEMP" 2>&1 | tee ui.log
+          code=${PIPESTATUS[0]}
+          grep -E '✗|Error|error' ui.log | head -20 | sed 's/^/::error::/'
+          exit $code
