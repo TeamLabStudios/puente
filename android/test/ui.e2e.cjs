@@ -85,6 +85,9 @@ const out = process.argv[2] || '/tmp/ui'
   await tap('#pairGo')
   const pw2 = (await p.evaluate(() => window.__calls)).filter((c) => c[0] === 'pairWith').pop()
   ok(pw2 && pw2[1] === '192.168.1.20,10.0.0.5' && pw2[3] === 'NYB988EK', 'al tocar «Emparejar» prueba las direcciones del QR')
-  ok(!errs.length, 'sin errores en la consola (ni de CSP) ' + errs.join(' | '))
+  // sin el motor de la mascota (no va en el repositorio público), su archivo falta: ese aviso no cuenta
+  const sinMascota = !require('fs').existsSync(path.join(__dirname, '../assets/ui/fluffy-friends.js'))
+  const reales = errs.filter((e) => !(sinMascota && /ERR_FILE_NOT_FOUND/.test(e)))
+  ok(!reales.length, 'sin errores en la consola (ni de CSP) ' + reales.join(' | '))
   await b.close()
 })()
